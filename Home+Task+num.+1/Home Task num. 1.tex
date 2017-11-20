@@ -1,0 +1,1563 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage[utf8]{inputenc}
+    \usepackage[english,russian]{babel}
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Home Task num. 1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Задание}\label{ux437ux430ux434ux430ux43dux438ux435}
+
+    Планируется сделать приложение, в котором будем по всевозможным
+признаками определять растения. Изначально зададим всевозможные модели
+для распознавания, а потом попробуем привязать к приложению (если
+успеем). Приложением занимается Даша Ефимова, я же попробую настроить
+модели.
+
+    \subsection{План}\label{ux43fux43bux430ux43d}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Для начала познакомимся с тематикой и попробуем сделать простенькую
+  модель для определния растения по каким-то атрибутам (по внешнему
+  виду). Планируется, что Даша Ефимова еще сделает что-то подобное,
+  только с жесткой привязкой к БД. То есть просто задавание атрибутов и
+  запрос к БД. Я же попробую сделать одной моделью. Для начала в
+  качестве эксперимента возьму популярному и уже христоматийному тему
+  набора
+  \href{https://en.wikipedia.org/wiki/Iris_flower_data_set}{Ирисов}
+  (знаменитая задача классификации Ирисов Фишера). Сошлемся как на
+  \href{https://www.kaggle.com/uciml/iris}{задание} с Kaggle. В этой
+  задачке посмотрим как какие-нибудь классификаторы (логистическая
+  регрессия, svm и другие), так и обучение без учителя (попробуем
+  кластеризовать данные на уже известное количество кластеров, а затем и
+  попробуем как-нибудь визуализировать данные, посредтсовм алгоритмов
+  уменьшения пространства). Обязательно оценим отечетсвенную новую
+  библиотеку градиентного бустинга от Яндекса
+  \href{https://tech.yandex.ru/catboost/}{CatBoost}, которая,
+  \href{https://catboost.yandex/\#benchmark}{как обещают} выигрывает у
+  своих аналогов. Мы же сравним с обычными агоритмами.
+\item
+  Затем попробуем усложнить задачу. Скажем, попробовать классифицировать
+  растения по картинкам. Датасет возьмем с другой
+  \href{https://www.kaggle.com/olgabelitskaya/the-dataset-of-flower-images/data}{задачки}
+  Kaggle, где есть набор где-то из 210 картинок и 10 классов цветов
+  (скажем прямо, что это достаточно маленькие выборки, но посмотрим, что
+  выйдет). Для этого, скорее всего раннние алгоритмы вряд ли подойдут
+  из-за сложнсти данных (большое количество разных признаков, для
+  которых надо было бы кучу данных для нормального обучения), поэтому
+  попробуем использовать свертовачные нейронные сети
+  (\href{http://cs231n.github.io/convolutional-networks/}{Convolutional
+  Neural Networks}), которые как раз и испольуют для распознавания
+  картинов. Например, в задачке определния
+  \href{https://www.kaggle.com/c/dogs-vs-cats/rules}{кошек и собак}
+  задачки Kaggle именно cnn показал очень неплохой
+  \href{http://www.subsubroutine.com/sub-subroutine/2016/9/30/cats-and-dogs-and-convolutional-neural-networks}{результат}.
+  Аналогично последней приведенной ссылке, я не буду писать нейронную
+  суть, а попробую взять реадизацию от Google
+  \href{https://www.tensorflow.org/}{TesorFlow}
+\item
+  Если все пойдет хорошо, попробуем и привязать что-нибудь с другими
+  растениями. Например, помогать грибникам определять,
+  \href{https://www.kaggle.com/uciml/mushroom-classification/data}{можно
+  ли кушать} гриб.
+\end{enumerate}
+
+    \section{Iris Dataset}\label{iris-dataset}
+
+Как было уже отмечено выше, для начала рассмотрит датасет ирисов.
+Подгрузим сам датасет, а затем посмотрим, что за данные мы имеем.
+
+    \subsection{Первые четыре
+атрибута}\label{ux43fux435ux440ux432ux44bux435-ux447ux435ux442ux44bux440ux435-ux430ux442ux440ux438ux431ux443ux442ux430}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Выгружаем датасет ирисов}
+         \PY{c+c1}{\PYZsh{} переводим из sklearn.DataSet в pd.DataFrame для удобства}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{c\PYZus{}}\PY{p}{[}\PY{n}{iris}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{iris}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} 
+                              \PY{n}{columns}\PY{o}{=} \PY{n}{iris}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature\PYZus{}names}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    sepal length (cm)  sepal width (cm)  petal length (cm)  petal width (cm)  \textbackslash{}
+        0                5.1               3.5                1.4               0.2   
+        1                4.9               3.0                1.4               0.2   
+        2                4.7               3.2                1.3               0.2   
+        3                4.6               3.1                1.5               0.2   
+        4                5.0               3.6                1.4               0.2   
+        
+           target  
+        0     0.0  
+        1     0.0  
+        2     0.0  
+        3     0.0  
+        4     0.0  
+\end{Verbatim}
+            
+    Как видим, мы имеем четыре атрибута, которые задают характеристики ириса
+(длина/ширина чашелистника (sepal) и лепестка (petal)). Отдельно
+отметим, что все эти признаки являются числовыми, т.е. они могут
+свободно использоваться в линейных метрических моделях (скажем, при
+вычислении эвклидова расстояния между листками длиной в 5 и 6
+сантиметров будет меньше, чем между 2 и 6, что и логично). Однако
+несмотря на то, что они уже являются числовыми, далеко не факт, что они
+не требуют дополнительной обработки. Разбросы значений в разных
+признаках могут сильно влиять на результат. Визуально (по первым пяти
+значениям, что мы видим выше), кажется, что ониразбросаны более-менее
+равномерно. Оценим это более точно.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}        sepal length (cm)  sepal width (cm)  petal length (cm)  \textbackslash{}
+        count         150.000000        150.000000         150.000000   
+        mean            5.843333          3.054000           3.758667   
+        std             0.828066          0.433594           1.764420   
+        min             4.300000          2.000000           1.000000   
+        25\%             5.100000          2.800000           1.600000   
+        50\%             5.800000          3.000000           4.350000   
+        75\%             6.400000          3.300000           5.100000   
+        max             7.900000          4.400000           6.900000   
+        
+               petal width (cm)      target  
+        count        150.000000  150.000000  
+        mean           1.198667    1.000000  
+        std            0.763161    0.819232  
+        min            0.100000    0.000000  
+        25\%            0.300000    0.000000  
+        50\%            1.300000    1.000000  
+        75\%            1.800000    2.000000  
+        max            2.500000    2.000000  
+\end{Verbatim}
+            
+    Как видим, все признаки (рассматриваем сейчас первые четыре) разбросаны
+равномерно (вернее, можно выделить крайние, которые немного выше и ниже
+по значеням соответственно), но это кажется незначительным. Если будет
+выходить плохая модель, то для повышения точности можно будет попробоать
+отмасштабировать (нормализовать) значения признаков (обычным
+StandardScaler(), который вычтет из каждого среднее значение по признаку
+и разделит на стандартное отклонение). Это необходимо, потому что при
+больших значениях данные атрибуты будут иметь просто больший вес, а
+другие атрибуты почти игнорируются. В качестве примера обычно приводят
+сравнение датасетов, когда, скажем, у нас есть признак отвечающий за
+зарплату и количество детей. Возьмем в пример трех людей: а) з/п: 100
+000; Детей: 0. б) з/п: 120 000; Детей: 5. в) з/п: 105 000; Детей: 4, то,
+казалось бы, больше всего тут похож б) и в) персонажи, однако обычная
+метрика даст другой результат, что как раз и с тем, о чем мы говорили
+выше. Другим очень выжным требованием для успешного обучения вялется
+условие, чтоб данные подчинялись нормальному закону. Проверить это можно
+посредством scipy.stats.mstats.normaltest. В качестве примера посмотрим
+один из атрибутов.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{scipy}
+        \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{mstats}\PY{o}{.}\PY{n}{normaltest}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sepal width (cm)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} NormaltestResult(statistic=3.5766421600696949, pvalue=0.16724071787237141)
+\end{Verbatim}
+            
+    Как видим, хи-квадрат (второй аргумент) показывает 0.16 Данное значение
+не очень велико, но бывают случаи куда и куда хуже. Для приведения к
+нормальному распределнию можно было бы попробовать прологарифмировать
+шкалу, например, чтоб выбросы стали менее заметными. Однако пока опустим
+это.
+
+    \subsection{Target}\label{target}
+
+    Последний атрибут \(target\) (про который мы еще не говорили) является
+как раз-таки маркером, отражающим, к какой категории относится данный
+цветок (отдельно взятая строка). Посмотрим, сколько значений принимает
+данный атрибут.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 2.0    0.333333
+        1.0    0.333333
+        0.0    0.333333
+        Name: target, dtype: float64
+\end{Verbatim}
+            
+    Как видим, в нашей выборке имеем три вида ирисов, причем все они
+встречаются равновероятно (по 50 на каждый вид (см. таблицу с описанием
+всех призакнв выше)), что очень благоприятно.\\
+После описания перейдем к обучению.
+
+    \section{Unsupervised Learning (часть
+1)}\label{unsupervised-learning-ux447ux430ux441ux442ux44c-1}
+
+    Для начала рассмотрим один из видов обучения без учителя, а если быть
+точнее - уменьшение размерности
+(\href{https://en.wikipedia.org/wiki/Dimensionality_reduction}{Dimensionality
+reduction}) Данную первую часть рассмотрим перед классическими моделями
+для обучения с учителем, чтоб сначала научиться как-то смотреть на
+результат классификации нашей модели. Конечно, мы будем получать и
+цифровые показатели оценки обучения, но хотелось бы и увидеть воочию,
+как мы обучаем. Суть алгоритмов уменьшения размерности кроется в самом
+названии. Есть попытаться кратко передать суть, то она прозвучит:
+попытаться увидеть наши d-мерные данные в n-мерном пространстве. Для
+человеческого глаза, как известно, приемлемым будет случай для n равным
+2 или 3. В качестве алгоритмов уменьшения без учителя рассмотрим
+несколько самых популярных: PCA, MDS и t-SNE. Не будем очень подробно
+останавливаться на каждом из них, но отразим хотя бы главные идеи этих
+алгоритмов.
+
+    \subsection{PCA}\label{pca}
+
+    \href{https://en.wikipedia.org/wiki/Principal_component_analysis}{PCA}
+(англ. principal component analysis ) или просто
+\href{https://ru.wikipedia.org/wiki/\%D0\%9C\%D0\%B5\%D1\%82\%D0\%BE\%D0\%B4_\%D0\%B3\%D0\%BB\%D0\%B0\%D0\%B2\%D0\%BD\%D1\%8B\%D1\%85_\%D0\%BA\%D0\%BE\%D0\%BC\%D0\%BF\%D0\%BE\%D0\%BD\%D0\%B5\%D0\%BD\%D1\%82}{Метод
+главных компонент} - уменьшить размерность данных посредством
+проецирования данных в ортогональные проеции таким образом, чтоб терять
+наименьшее количество информации. В данном случае количеством потерянной
+информации считаеся как суммарное среднеквадратичное отклонение старых
+точек до проецированя к новым. Можно посмотреть на
+\href{https://i.stack.imgur.com/Q7HIP.gif}{эту завораживающую анимацию},
+где в зависимости от разных прямых меняется расстояние от старых точек
+до новых (проекции на прямую). Фиолетовым обозначена идеальный случай
+(минимальное значение того функционала, что мы выделили выше).
+Вычисления достаточно простые: сначала вычисляем
+\href{https://en.wikipedia.org/wiki/Covariance_matrix}{ковариоционную
+матрицу} (которая будет характеризовать зависимость случайных велечин
+друг от друга), потом
+\href{https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors}{собственный
+вектор} и соответсвующее ему
+\href{https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors}{собственное
+значение}. Собственное значение и есть мера количества информации.
+Поэтому соритруем собственные числа, выбираем количество компонент
+(количество собственных чисел, если не визуализируют данные, то можно
+выбирать количество компонент по количесву потерянной информации,
+скажем, 90\%) и затем можем путем выбора сооветсвующих векторов умножать
+значение нашей матрицы значений на эту матрицу собственных векторов
+(\(W\)), как и получае новые значения (проекции).
+
+    Приведем небольшой пример работы.\\
+I. Для начала вычисляем ковариационную матрицу для входной матрицы
+значений и по ней собственные вектора со значениями
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{cor\PYZus{}mat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Covariance matrix: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{np}.cov(iris.data.T))
+          \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+          \PY{n}{eig\PYZus{}vals}\PY{p}{,} \PY{n}{eig\PYZus{}vecs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{cor\PYZus{}mat}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eigenvectors }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{eig\PYZus{}vecs})
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Eigenvalues }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{eig\PYZus{}vals})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Covariance matrix: 
+[[ 0.69 -0.04  1.27  0.52]
+ [-0.04  0.19 -0.32 -0.12]
+ [ 1.27 -0.32  3.11  1.3 ]
+ [ 0.52 -0.12  1.3   0.58]]
+
+Eigenvectors 
+[[ 0.36 -0.66 -0.58  0.32]
+ [-0.08 -0.73  0.6  -0.32]
+ [ 0.86  0.18  0.07 -0.48]
+ [ 0.36  0.07  0.55  0.75]]
+
+Eigenvalues 
+[ 4.22  0.24  0.08  0.02]
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\Roman{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Сортируем по собственному значению. Выбираем количество компонент (в
+  данном случае 2) и получаем матрицу \(W\)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{n}{eig\PYZus{}pairs} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{eig\PYZus{}vals}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{eig\PYZus{}vecs}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{eig\PYZus{}vals}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+          \PY{n}{eig\PYZus{}pairs}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+          \PY{n}{eig\PYZus{}pairs}\PY{o}{.}\PY{n}{reverse}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eigenvalues in descending order:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{eig\PYZus{}pairs}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ arr: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{i}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          \PY{n}{matrix\PYZus{}w} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{eig\PYZus{}pairs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                                \PY{n}{eig\PYZus{}pairs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{matrix\PYZus{}w}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eigenvalues in descending order:
+val: 4.224840768320107 arr: [ 0.36 -0.08  0.86  0.36]
+val: 0.242243571627515 arr: [-0.66 -0.73  0.18  0.07]
+val: 0.07852390809415474 arr: [-0.58  0.6   0.07  0.55]
+val: 0.023683027126001163 arr: [ 0.32 -0.32 -0.48  0.75]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:} array([[ 0.36, -0.66],
+                 [-0.08, -0.73],
+                 [ 0.86,  0.18],
+                 [ 0.36,  0.07]])
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\Roman{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Получаем новые значения-проекции (в данном случае покажем только два
+  новых значения)
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{matrix\PYZus{}w}\PY{p}{)}
+          \PY{n}{Y}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} array([[ 2.83, -5.64],
+                 [ 2.8 , -5.15]])
+\end{Verbatim}
+            
+    Отметим, что на самом деле задачка отлично решается посредством
+сингулярного разложения (обязательным условием является то, чот данные
+\href{https://stats.stackexchange.com/questions/134282/relationship-between-svd-and-pca-how-to-use-svd-to-perform-pca?answertab=oldest\#tab-top}{нормализованы}!).
+Как известна, любую матрицу можно представить как произведение трех
+других. Обычно их обозначаю \(U\)\(\sum\)\(V^*\) Где \(V^*\)- самая
+правая матрица (как известно, при перемножении матриц важно соблюдать их
+положение), так называемая матрица поворота (аналог из линейной
+алгебры). В нашем случае, который мы рассматривали это матрица, которая
+отвечает за поворот прямой. Вторая матрица - \(\sum\), диагональная
+матрица, где на главное диагонали располагаются как раз-таки те дельты,
+которые мы раннее приняли за суммарное среднеквадратическое отклонение
+старых точек к новым к относительно даннной компоненты (компоненты все
+нумеруются и составляют каждая свой новый уровень). Причем расставляются
+в порядке уменьшения этой дельты. Поэтому задачка значитально
+упрощается. Достаточн все начальное пространство (представляем в виде
+матрица) разложить на три матрица. Выбрать количество главных компонент
+(что будет составлять количество строк тех самых матриц) и перемножить
+между собой. Мы получим новые точки. Причем однозначно сможем определить
+эквивалент количества потерянной информации (как раз-таки эти дельты).
+На практике так и применяется. Для сингулярного разложения можно
+использовать даже
+\href{https://en.wikipedia.org/wiki/Singular-value_decomposition}{SVD}
+разложение, которое тоже реализовано в Питоне, а потом взять
+библиотечный вариант PCA и сравнить результаты. Они если и недолжны
+отличаться, то хотя бы будут очень похожи. Подброный разбор можно найти
+\href{http://sebastianraschka.com/Articles/2014_pca_step_by_step.html\#eig_vec}{тут}
+и
+\href{https://plot.ly/ipython-notebooks/principal-component-analysis/}{тут
+даже для нашей задачи}
+
+    Теперь построим отображение для трехмерного случая.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} урезаем код. Ниже будет рассмотрен более компактный случай}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Аналогично построим для двумерного случая. Отметим, что двумерный
+случаем будет какая-то из плоскостей трехмерного пространства, которая
+наилучшим образом сохраняет положение точек.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+          \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+          \PY{n}{y} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{target}
+          \PY{n}{X\PYZus{}reduced} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+          \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{X\PYZus{}reduced}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{X\PYZus{}reduced}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                      \PY{n}{c}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First two PCA directions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st eigenvector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd eigenvector}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:} <matplotlib.text.Text at 0x7f9c623d00b8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{t-SNE}\label{t-sne}
+
+    t-SNE (англ.
+\href{https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding}{t-distributed
+stochastic neighbor embedding}) - является улучшенной версией
+аналогичного похожего алгоритма SNE - случайное отображение по соседям,
+если уж дословно, но в t-SNE есть ряд улучшений, одно из которых -
+использование t-распределяни (скажем, для определения принадлежности к
+одной выборке).\\
+Данный
+\href{http://www.jmlr.org/papers/volume9/vandermaaten08a/vandermaaten08a.pdf}{метод}
+предложил один из чародеей нейронных сетей
+\href{https://en.wikipedia.org/wiki/Geoffrey_Hinton}{Д. Хитон}, где в
+\href{https://lvdmaaten.github.io/tsne/}{официальном FAQ} пишет:\\
+\textgreater{} "... As a result, it often works better if you increase
+the degrees of freedom of the t-distribution when embedding into thirty
+dimensions ..."
+
+То есть можно применять данный алгорритм и для отображения на
+многомерные пространтсва, но тогда надо повышать степень свободы
+t-Распределения. Как я понимаю, тут идет речь про проблему скученности
+(в оригинале -- crowding problem).\\
+Кажется, если строго все объяснять, то данное домашнее задание получится
+слишком перегруженной, поэтому будем стараться указывать только основные
+мысли и идеи алгоритмов. При необходимости сделать все более подробно.\\
+Попытаемся понять суть данного алгоритма. Основная идея заключается в
+поиске таких двух признаков для всех данных, которые позволили бы
+наилучшим образом описать все данные в том смысле, чтоб сохранялись
+соотношения по расстоянию между конкретными точками данных. То есть,
+если в d-мерном пространстве две точки лежат рядом с друг другом, то и в
+двумерном, они будут лежать рядом. Хорошим примером и является
+уменьшения размерности из трехмерного в двумерное: т.е. если изначально
+наши все точки представлены в каком-то кубе, и мы пытаемся найти одну
+такую плоскость, которая наилучшим образом сохраняет это положение. Для
+понимая же работы самого алгоритма для можно привести физическую
+аналогию: все точки соединены пружинами, и делается предположение, что
+через какое-то время благодаря результирующей силе (которая в данном
+случае является аналогом градиента, который минимизирует функцию потерь)
+ближние точки будут стягиваться, а дальние - отталкиваться и система в
+итоге придет в равновесие.\\
+Сравнива PCA и t-SNE
+\href{https://medium.com/@luckylwk/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b}{предпочтнее
+стоит все-таки отдавать} t-SNE. Отметим, что эти алгоритмы можно с
+успехом
+\href{https://medium.com/@luckylwk/visualising-high-dimensional-datasets-using-pca-and-t-sne-in-python-8ef87e7915b}{рассматривать
+и в паре}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         from sklearn.manifold import TSNE
+         tsne = TSNE(n\PYZus{}components=2, random\PYZus{}state=0)
+         tsne\PYZus{}representation = tsne.fit\PYZus{}transform(df)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 1.3 s, sys: 164 ms, total: 1.47 s
+Wall time: 1.51 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{tsne\PYZus{}representation}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{tsne\PYZus{}representation}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                     \PY{n}{c}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{MDS}\label{mds}
+
+    MDS (англ.
+\href{https://en.wikipedia.org/wiki/Multidimensional_scaling}{Multidimensional
+scaling}) - метод многомерного шкалирования, который просто минимизирует
+квадраты отклонения между попарными расстояния новых точек и их проекций
+в низкоразмерном пространстве. Минусом данного метода является то, что в
+него очень сложно добавить новые данные.\\
+Получаем функционал
+\[\sum_{i\neq j}^{l} (\rho(x_i, x_j)-\rho(z_i, z_j))^2 \rightarrow \min_{z_1,\dots z_l}\],
+где \(x_i \in R^d\) - исходные объекты, а \(z_i \in R^d\),
+\(2 \leqslant d \leqslant 3\) - их низкоращмерные проекции.\\
+Более детальный анализ оставим. Однако приведем всевозможных источники
+для доп.
+(\href{https://github.com/esokolov/ml-course-hse/blob/master/2016-fall/lecture-notes/lecture12-unsupervised.pdf}{основной})
+информации и для
+\href{http://scikit-learn.org/stable/auto_examples/manifold/plot_lle_digits.html\#sphx-glr-auto-examples-manifold-plot-lle-digits-py}{сравнения
+методов}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+          \PYZpc{}pylab inline
+          from sklearn.manifold import MDS
+          import matplotlib.pyplot as plt
+          mds = MDS(n\PYZus{}components=2, random\PYZus{}state=0)
+          mds\PYZus{}representation = mds.fit\PYZus{}transform(df)
+          plt.scatter(mds\PYZus{}representation[:, 0], mds\PYZus{}representation[:, 1], \PYZbs{}
+                      c=df[\PYZsq{}target\PYZsq{}].map(\PYZob{}0: \PYZsq{}blue\PYZsq{}, 1: \PYZsq{}orange\PYZsq{}, 2: \PYZsq{}red\PYZsq{}\PYZcb{}));
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+CPU times: user 248 ms, sys: 488 ms, total: 736 ms
+Wall time: 186 ms
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Вывод}\label{ux432ux44bux432ux43eux434}
+
+    Для нашей задачи для визуализации будет использовать t-SNE, т.к. он
+показал наилучший результат (наибольшее расстояние между кластерами, что
+он выделил).
+
+    \section{Supervised Learning}\label{supervised-learning}
+
+    Теперь рассмотрим задачи для обучения с учителем. Т.е. мы будем обучать
+модель по тем маркерам, что имеем (столбец \(target\)) , а затем по
+новым входным данным прогнозировать (классифицировать). Для этого из
+всего датасета выделим обучающую выборку и отложенную (тестовую). Очень
+важно, чтоб тестовые значения выбирались не простым образом, как,
+сначала первые 70\% данных, а потом остальные тридцать, а случайным
+образом. Для решения данной проблемы будем использовать
+train\_test\_split(...), который и решает данную проблему, выбираем
+наборы для обучения и теста максимально непредвзято.
+
+    Прежде чем начнем непосредственно обучать модели, обозначим то, как
+будем оценивать наши модели. Кроме визуального анализа (будем строить
+отображения t-SNE), будем использовать численные метрики для оценки.
+
+    \subsection{Численные оценки
+качества}\label{ux447ux438ux441ux43bux435ux43dux43dux44bux435-ux43eux446ux435ux43dux43aux438-ux43aux430ux447ux435ux441ux442ux432ux430}
+
+    \subsubsection{Accuracy}\label{accuracy}
+
+    Данная метрика просто отражает количество тех случаев, когда
+классификатор принял правильное решение относительно всех попыток.
+\[Accuracy = \dfrac{Right}{All}\]\\
+Данную оценку можно использовать, но если классы неравнозначные, то
+лучше от нее стоит отказаться. Часто бывает, что тот класс, что мы ищем,
+в процентом соотношении составляет всего несколько процентов, т.е. даже
+слепое предсказание того, что данные не пренадлежат к этому классу
+покажет очень высокий показатель. Например, у нас есть класс, где 99\%
+класс \{1\}, а 1\% - \{-1\}. Слепое предсказание \{1\} покажет точность
+в 99\%, хотя на самом деле мы ни разу не детектируем наш класс, который
+мы ищем.
+
+    \subsubsection{Precision and Recall}\label{precision-and-recall}
+
+    Точность и полнота (Precision and Recall) помогает решить ту проблему
+соотношения признаков, что мы выделили в \(Accuracy\). Построим
+\(Confusion Matrix\) (из статистика данная таблица известа для
+составления ошибок разного рода), чтоб объяснить данные показатели
+качества. 
+    \begin{center}
+    \includegraphics{ysM0Z.png}
+    \end{center} Откуда
+получаем \[Precision = \dfrac{TP}{TP+FP}\]\\
+\[Recall = \dfrac{TP}{TP+FN}\]\\
+Т.е. в данном случае точность (\(Precision\)) отражает именно процент
+правильно принятых решения, когда решение вообще принималось
+относительно класса, которые ищем, а полнота (\(Recall\)) отражает
+процентное соотношение содержание правильных предсказаний относительно
+всего количества, что мы должно были бы найти.
+
+    Однако в данном случае мы рассматриваем задачу бинарное классификации
+(всего два класса), в нашем же случае класса три. Расширить
+\(Confusion Matrix\) для многомерного случая очень просто, а точность
+для \(i\)-го класса будет считаться как отношение \(i\)-го значения на
+главное диагонали к значанию в \(i\)-ом столбце. Аналогично для полноты,
+только столбец заменяем строчкой. Отметим, что обычно, для того, чтоб не
+возникали нули, вводят поправочные свободные коэффициенты в числителе и
+знаменателе.
+
+    \subsubsection{F-measure}\label{f-measure}
+
+    Часто полнота и точность (см. предыдущий пункт) являются обратно
+зависимыми велечинами, то есть с увеличением одной, будет падать другая.
+Для того, чтоб определить какой-то баланс между этими велечинами,
+оценивают среднее гармоническое между ними (т.к. эта оценка
+чувствительна к нулям, если хотя бы одна из них стремится к нулю, то и
+данные меры будет нулевой)
+\[F=2\dfrac{Recall * Precision}{Recall+Precision}\]
+
+    Данную меру еще называют еще \(F1\) мерой. Для того, чтоб придать
+какой-то вес одной из велечин, можно задать параметр \(\beta\) (для
+\(F1\) меры \(\beta=1\)), который будет отвечать вес при точности.
+
+    После задания оценок для классификаторов перейдем к обучению моделей.
+
+    \subsection{Модели
+классификации}\label{ux43cux43eux434ux435ux43bux438-ux43aux43bux430ux441ux441ux438ux444ux438ux43aux430ux446ux438ux438}
+
+    \subsubsection{Логистическая
+регрессия}\label{ux43bux43eux433ux438ux441ux442ux438ux447ux435ux441ux43aux430ux44f-ux440ux435ux433ux440ux435ux441ux441ux438ux44f}
+
+    Итак, первый алгоритм, который мы рассмтрим будет
+\href{https://en.wikipedia.org/wiki/Logistic_regression}{логистичекая
+регрессия}. Отношения к как таковой регресси в классическом понимании
+как составление тренда или какое-то экстраполирование данная модель не
+имеет никакого отношения. Название такое сложилось исторически. Опишем
+вкратце как она обучается. Итак начнем с описания для бинарной
+классификации (имеется два признака \(x_1\), \(x_2\)), которцю затем
+обобщим для многоклассового сучая (\(x_1\), \(\dots\) \(x_d\)). Итак,
+представим, что у нас есть какие-то два облака точек, которые необходимо
+разделить какой-то прямой (отметим и дальше будет заметно, что данный
+метод строит ленийные разделяющие поверхности). Каждая точка имеет свои
+координаты (\(x_1^i\), \(x_2^i\)). В таком случае прямую можно
+представить в виде вектора \(w\), значения которой получаются после
+скалярного произведения \(w\) на \(x_1\) и \(x_2\), смещение же задается
+отдельно как \(w_0\), можно и ввести его отдельно, тогда вектор \(w\)
+будет из себя представлять \(w1\)...\(w0\), а \(x: (-1, x_1, x_2)\).
+Значение при \(w_0\) задает смещение (threshold). Теперь необходимо
+задать функционал, относительно которого считаются значения ветора
+\(w\). Для этого задаются всевозможные функции потерь, которые
+необходимо минимизировать. Cамым простым случаем можно считать вариант,
+когда мы подсчитываем количество неправильных классификаций. Однако тут
+сразу видна основная проблема: тогда выйдет, что наша функция будет
+дискретна. Поэтому для ухода от этого пагубного фактора используют
+другой функционал. Для начала рассмтотрим, что из себя представляет
+скалярное произведение произвольной точки \(x_i\) на вектор \(w\), а
+именно, он характеризует, и это строго доказывается, расстояние точки до
+нашей разделяющей прямой (перпендикуляр). Это расстояние обычно
+обозначают буквой \(M\) (Margin). Теперь посмотрим, как мы можем
+детектировать отношение к одному или другому классу. Если прямая
+разделяет два класса, то выходит, что один класс просто выше прямой (на
+языке линейной алгебры значение в точке больше проекции этой точке на
+прямую), а другой ниже. Однако обозначим один класс положиельными
+единицами (что выше), а другой отрицательными. Тогда выходит, что
+расстояния \(M\) буду отрицательными для того класса, что ниже и
+положительными для того, что выше, но при перемножении \(M\) на
+соответсвующйи маркер мы получаем аналог модуля расстояния. Теперь
+перейдем вплотную к составлению функционала. Идельный случай, когда бы
+мы все правильные классификации никак не трогали (или бы давали
+отрицательный отклик функции потерь), а неправильные случае как-то
+штрафовали. Можно себе представить ступеньку, где по оси абсцисс
+откладываем как раз-таки наши расстояние \(M\), а по оси ординат
+величину штрафа, тогда мы бы штравовали только неправильные случаи. Но
+такая функция вышла бы не дифференцируема (на всей области), поэтому тут
+используют так называемую логистическую функцию потерь
+(\href{http://wiki.fast.ai/index.php/Log_Loss}{log-loss}). Она из себя
+представляет: log 1/(1+exp(-M)). () Отсюда видно, что те точки, что
+находятся далеко от разделяющей прямой и классифируются правильно не
+будут штрафоваться, а те, что близки к ней или неправильно
+классифицируются - штрафуются. Логарифм позволяет сгладить тяжелые
+концы, поэтому наша функция не так будет чувствительна к выбросам.
+Именно этот функционал и опмтимизируется. Для находждения минимума
+функции потерь (просчитываем сумму функции потерь для каждой точки)
+обычно используются
+\href{https://en.wikipedia.org/wiki/Gradient_descent}{градиентный
+спуск}. Для справки отметим, что зачастую в алгоритмах применяется
+\href{https://en.wikipedia.org/wiki/Stochastic_gradient_descent}{случайный}
+(stohastic) градиентный спуск, где значение градиента считается только
+для одной из координат для одной итерации.
+
+    Попробуем обучить модель. Для того, чтобы первично оценить модель,
+посмотрим, какие цифры она покажет на кросс-валидаци.
+
+    \subsubsection{CV}\label{cv}
+
+    CV
+(\href{http://www.machinelearning.ru/wiki/index.php?title=\%D0\%A1\%D0\%BA\%D0\%BE\%D0\%BB\%D1\%8C\%D0\%B7\%D1\%8F\%D1\%89\%D0\%B8\%D0\%B9_\%D0\%BA\%D0\%BE\%D0\%BD\%D1\%82\%D1\%80\%D0\%BE\%D0\%BB\%D1\%8C}{cross-validation
+- скользящий контроль}) - процедура эмпирического оценивания обобщающей
+способности алгоритмов, обучаемых по прецедентам. Как работает данный
+метод. Сначала фиксируются какие-то части обучающей и тестовой выборок
+(деление общих данных). Проводится обучение по соответсвующей части
+выборки, а затем проверка по тестовой. Подводятся результаты по какой-то
+из мер оценки качества и повторяется для других частей всей выборки.
+Есть много разных подходов (complete CV (всевозможные случаи (оченсь
+сложно)), leave-one-out CV (убираем один (очень малая чувствтельность)),
+hold-out CV (обычное деление на отложенную выборку, что и так
+реудизуем), q-fold и др.), но мы будем использовать самый популярный
+q-fold, когда всю выборку делят на \(q\) равных частей, и затем обучают
+по \(q-1\) части и тестируют по отставшейся. Данную процедру провоят до
+тех пор, пока в тестовой части не побудут все фолды (\(q\) блоки).
+Обычно выбираеют деление на 5 или 10 блоков, что доказывается
+статистически. Для уменьшения рассчетов, будем использовать
+кросс-валидацию с делением по 5.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}\PY{p}{,} \PY{n}{datasets}
+         \PY{n}{logreg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e5}\PY{p}{)}
+         \PY{n}{iris} \PY{o}{=} \PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{logreg}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} 0.95999999999999996
+\end{Verbatim}
+            
+    Среднее значение по кросс-валидации получилось .96 (считаем по
+\(acurracy\) по-умолчанию), что очень хорошо. Уже сейчас можно говорить,
+что скорее всего эта модель покажет себя достойно.\\
+Теперь разделим выборку на тестовую и обучающую. (выделим треть на тест)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{33}\PY{p}{)}
+\end{Verbatim}
+
+
+    Обучаем модель аналогично тем параметрам, что мы обучали на первом этапе
+с кросс-валидацией.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{logreg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e5}\PY{p}{)}
+         \PY{n}{logreg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+         \PY{n}{y\PYZus{}predict} \PY{o}{=} \PY{n}{logreg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    Благодаря t-SNE визуально оценим качество нашей модели.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         from sklearn.manifold import TSNE
+         tsne = TSNE(n\PYZus{}components=2, random\PYZus{}state=42)
+         tsne\PYZus{}representation = tsne.fit\PYZus{}transform(X\PYZus{}train)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 760 ms, sys: 116 ms, total: 876 ms
+Wall time: 874 ms
+
+    \end{Verbatim}
+
+    Отдельно разукрасим предсказанную часть и реальную.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+         \PY{n}{dict\PYZus{}colors} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n}{f}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Real}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{tsne\PYZus{}representation}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{tsne\PYZus{}representation}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                     \PY{n}{c}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{dict\PYZus{}colors}\PY{o}{.}\PY{n}{get}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{tsne\PYZus{}representation}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{tsne\PYZus{}representation}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                     \PY{n}{c}\PY{o}{=}\PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{map}\PY{p}{(}\PY{n}{dict\PYZus{}colors}\PY{o}{.}\PY{n}{get}\PY{p}{,} \PY{n}{y\PYZus{}predict}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/opt/conda/lib/python3.6/site-packages/IPython/core/magics/pylab.py:160: UserWarning: pylab import has clobbered these variables: ['f']
+`\%matplotlib` prevents importing * from pylab and numpy
+  "\textbackslash{}n`\%matplotlib` prevents importing * from pylab and numpy"
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Чисто визуально кажется, что модель отлично предсказывает классы. Теперь
+оценим эти в числах.\\
+Для этого сначала составим матрицу ошибок (\(Confusion Matrix\)), а
+затем подсчитаем числовые оценки качества нашей модели, а именно:
+\(precision\), \(recall\), \(f1\). Для этого напишем одну общую функцию
+для всех моделей.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{k+kn}{import} \PY{n+nn}{itertools}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}\PY{p}{,} \PY{n}{datasets}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         
+         \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{data}
+         \PY{n}{y} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{target}
+         \PY{n}{class\PYZus{}names} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{target\PYZus{}names}
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{classes}\PY{p}{,}
+                                   \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                                   \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Confusion matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{n}{cmap}\PY{o}{=}\PY{n}{plt}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{Blues}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{normalize}\PY{p}{:}
+                 \PY{n}{cm} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{/} \PY{n}{cm}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{pass}
+                
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{interpolation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{cmap}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tick\PYZus{}marks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{classes}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{45}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{tick\PYZus{}marks}\PY{p}{,} \PY{n}{classes}\PY{p}{)}
+         
+             \PY{n}{fmt} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.2f}\PY{l+s+s1}{\PYZsq{}} \PY{k}{if} \PY{n}{normalize} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}
+             \PY{n}{thresh} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n+nb}{range}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{j}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n+nb}{format}\PY{p}{(}\PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{n}{fmt}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{horizontalalignment}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                          \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}} \PY{k}{if} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{thresh} \PY{k}{else} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{fit\PYZus{}model\PYZus{}iris}\PY{p}{(}\PY{n}{model}\PY{p}{)}\PY{p}{:}
+             \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)} \PY{c+c1}{\PYZsh{} обучаем модель (для всех одинак. разбиение)}
+             \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)} \PY{c+c1}{\PYZsh{} предсказываем на тесте}
+             
+             \PY{c+c1}{\PYZsh{} строим матрицу ошибок}
+             \PY{n}{cnf\PYZus{}matrix} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+             \PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{precision}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plot\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{,} \PY{n}{classes}\PY{o}{=}\PY{n}{class\PYZus{}names}\PY{p}{,} \PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                                   \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normalized confusion matrix}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} вычисляем точность, полноту и ф\PYZhy{}меру}
+             \PY{n}{precision} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{)}
+             \PY{n}{recall} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{)}
+             \PY{n}{f1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} точность \PYZhy{} cумма по строке}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{precision} \PY{o}{=} \PY{n}{precision}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} полнота \PYZhy{} сумма по столбцу (строке для транспонир. матрицы ошибок)}
+             \PY{n}{tran\PYZus{}cnf\PYZus{}matrix} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tran\PYZus{}cnf\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{recall} \PY{o}{=} \PY{n}{recall}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{tran\PYZus{}cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{tran\PYZus{}cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} f\PYZhy{}мера \PYZhy{} среднее гармоническое между точностью и полнотой}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{recall}\PY{o}{.}\PY{n}{iteritems}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{f1} \PY{o}{=} \PY{n}{f1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{precision}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{recall}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{precision}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{n}{recall}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{df\PYZus{}model} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{precision}\PY{p}{,} \PY{n}{recall}\PY{p}{,} \PY{n}{f1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{df\PYZus{}model}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{class\PYZus{}names}
+             \PY{n}{df\PYZus{}model}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precision}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Recall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F1 measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{return} \PY{n}{df\PYZus{}model}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{logreg} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e5}\PY{p}{)}
+         \PY{n}{df\PYZus{}logreg} \PY{o}{=} \PY{n}{fit\PYZus{}model\PYZus{}iris}\PY{p}{(}\PY{n}{logreg}\PY{p}{)}
+         \PY{n}{df\PYZus{}logreg}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:}             setosa  versicolor  virginica
+         Precision      1.0    0.937500   1.000000
+         Recall         1.0    1.000000   0.900000
+         F1 measure     1.0    0.967742   0.947368
+\end{Verbatim}
+            
+    Посмотрев на цифры выше можно сказать, что построенная модель отлично
+справляется с поставленной задаей классификациии. По одному из классов
+выходит стопроцентная детекция, по другим же она не меньше 90\%. F-мера
+же не выходит ниже 94\%. Уже по одной только этой моделе можно говорить,
+что она отлично обощает данные.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} урезали код}
+         \PY{c+c1}{\PYZsh{} модель линейной регресии для двух атрибутов}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Деревья
+решений}\label{ux434ux435ux440ux435ux432ux44cux44f-ux440ux435ux448ux435ux43dux438ux439}
+
+    Следующей моделью, которую мы рассмотрим будут разрешающие деревья
+(\href{https://en.wikipedia.org/wiki/Decision_tree}{Decision Tree},
+деревья решений). Чтоб понять этот метод, представим себе обычное
+бинарное дерево, где есть строгий выбор перехода на следующую ступень
+дерева. Т.е. мы задаем просто какие-то ветвления, посредством коротых,
+конечно, можем покрыть все возможные случаи. Встает сразу несколько
+важных вопросов: как принимать условия для ветвления? до какой глубины
+опускаться? Второй вопрос является очень важным. Если обучаться на одной
+выборке, то можно легко добиться точности в 100\%, когда глубина дерева
+составляла бы \(N-1\) состояний. Но тогда, скорее всего, на тестовой
+выборке мы получили бы плохой результат. Данный случай называется
+переобучением
+(\href{https://en.wikipedia.org/wiki/Overfitting}{overfitting}), когда
+мы слишком "подгоняемся" под одну выборку, но обобщающей способностью
+наша модель почти не будет обладать. Поэтому один из гиперпараметров
+модели является максимальная глубина (\(max\)\emph{\(depth\)). Теперь
+подумаем, как мы будем определять ветвления (какие условия и какие
+значения при условиях). Обычно используеться несколько мер. Например,
+\href{https://en.wikipedia.org/wiki/Decision_tree_learning\#Gini_impurity}{Gini
+impurity}, не путать с коэф. Gini, которых характеризует примесь наших
+данных (грубо говоря, какова вероятность правильно угадать наш класс,
+при таком разбиении). Например, мы имеем при каком-то разбиении три
+класса, каждый из которых встретится со своей веростностью (вероятность
+считаем только для этого разбиения, т.е. в данном случае прикинем как
+отношение количества элементов этой группы ко всей выборке при таком
+разбиении). Тогда сумма произведений веростности для каждого класса
+(учитываем вероятность попадания и промаха) и будет составлять нашу
+\(Gini\) \(impurity\). Другой вариант - использование
+\href{https://en.wikipedia.org/wiki/Information_gain_in_decision_trees}{Information
+gain}, который характеризует количественную меру информации для
+какого-то определенного класса, т.е. с какой силой мы можем говорить о
+пренадлежности к какому-то из классов (аналог можно найти в
+\href{https://en.wikipedia.org/wiki/Kullback\%E2\%80\%93Leibler_divergence}{t-SNE}).
+Как видим, при выборе разбиения мы должны выбирать: по какому из
+атрибутов будем выделять группы. Для этого задается еще один
+гиперпараметр \(max\)}\(features\).\\
+Аналогично логистической регресси оценим реузультат на кросс-валидации.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}iris}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n}{clf} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{iris} \PY{o}{=} \PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} 0.96000000000000019
+\end{Verbatim}
+            
+    Выходит, что "из коробки" решающие деревья показали жаэе более хороший
+результат, чем логистическая регрессия.\\
+Делим на тестовую и обучающую выборку со соотношением 70 на 30.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{33}\PY{p}{)}
+\end{Verbatim}
+
+
+    Посредством кросс-валидации можно находить оптимальные значения для
+гиперпараметров нашей модели (перебираются все случаи, для каждого из
+которых прикидывается свое значение кросс-валидации и наибольшее
+значение будет соответствовать лучшему случаю). В нашем случае будем
+перебирвать максимальную глубину дерева (\(max\)\emph{\(depth\)) и
+количество атрибутов, по которым будем вести разбиение
+(\(max\)}\(features\)).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         \PY{n}{forest\PYZus{}params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{)}\PY{p}{,} \PY{c+c1}{\PYZsh{} глубину перебираем от 1 до 14}
+         \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{\PYZcb{}} \PY{c+c1}{\PYZsh{} количество атрибутов берем от 1 до 5}
+         \PY{n}{tree\PYZus{}grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{forest\PYZus{}params}\PY{p}{,}
+         \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+         \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{tree\PYZus{}grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 5 folds for each of 52 candidates, totalling 260 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=-1)]: Done 260 out of 260 | elapsed:    0.1s finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:} GridSearchCV(cv=5, error\_score='raise',
+                estimator=DecisionTreeClassifier(class\_weight=None, criterion='gini', max\_depth=None,
+                     max\_features=None, max\_leaf\_nodes=None,
+                     min\_impurity\_decrease=0.0, min\_impurity\_split=None,
+                     min\_samples\_leaf=1, min\_samples\_split=2,
+                     min\_weight\_fraction\_leaf=0.0, presort=False, random\_state=0,
+                     splitter='best'),
+                fit\_params=None, iid=True, n\_jobs=-1,
+                param\_grid=\{'max\_depth': range(1, 14), 'max\_features': range(1, 5)\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score=True,
+                scoring=None, verbose=True)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{tree\PYZus{}grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}} \PY{c+c1}{\PYZsh{} получаем значение параметров для лучшей модели}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} DecisionTreeClassifier(class\_weight=None, criterion='gini', max\_depth=2,
+                     max\_features=2, max\_leaf\_nodes=None, min\_impurity\_decrease=0.0,
+                     min\_impurity\_split=None, min\_samples\_leaf=1,
+                     min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+                     presort=False, random\_state=0, splitter='best')
+\end{Verbatim}
+            
+    Как видим, получили максимальную глубину и количество отрибтуов при
+разбиении равными двум для оптимального случая. Построим полученную
+модель и сравним с логистической регрессией.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{df\PYZus{}tree} \PY{o}{=} \PY{n}{fit\PYZus{}model\PYZus{}iris}\PY{p}{(}\PY{n}{clf}\PY{p}{)}
+         \PY{n}{df\PYZus{}tree}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:}             setosa  versicolor  virginica
+         Precision      1.0    1.000000   0.888889
+         Recall         1.0    0.941176   1.000000
+         F1 measure     1.0    0.969697   0.941176
+\end{Verbatim}
+            
+    Как видим, по цифрам все вышло немного хуже, чем для логистичесой
+регрессии, хотя все равно результаты очень и очень хорошие (конечно, все
+дело в очень удачной выборке). Ради интереса можем еще построить само
+дерево решений, по которому все строит наша модель. Для этого есть
+специальная утилита graphiz в Питоне.
+
+    \begin{center}
+\includegraphics{WD_2zN-HSBE.jpg}
+\end{center}
+
+    Как видим, на каждом лепестпе можем посмотреть значение то, по какому
+признаку идет разбиение и при каком значении (самый верх), а также
+\(Gini\) (Gini impurity). Значение \(samples\) показывает, сколько
+осталось в общей выбрке. Значение \(value\) отражает, сколько осталось
+по каждому классу. Для интереса приведем картинку для случая, когда было
+бы переобучение, т.е. когда бы мы взялима максимальную глубину и
+"подогнались" бы под всю выборку. Переобучение является серьезной
+проблемой для деревьев решений. Для борьбы с этим используют
+\href{https://www.google.ru/url?sa=t\&rct=j\&q=\&esrc=s\&source=web\&cd=1\&ved=0ahUKEwjB2uzMrKfXAhUjJ5oKHQ8uD8wQFggnMAA\&url=https\%3A\%2F\%2Fru.wikipedia.org\%2Fwiki\%2FRandom_forest\&usg=AOvVaw0OOhfoOzsrok1ODyf-jO-I}{случайный
+лес} (набор разных деревьев решений с разными параметрами).
+
+    \begin{center}
+\includegraphics{iris.png}
+\end{center}
+
+    \subsubsection{SVC}\label{svc}
+
+    SVC (support vector classifier) - алгоритм классификации, основанный на
+SVM (\href{https://en.wikipedia.org/wiki/Support_vector_machine}{support
+vector machine}) методе опорных векторов. Аналогично логистической
+регрессии, мы рассматриваем случай, когда у нас есть разделяющая прямая,
+которая задается вектором \(w\). Посотроим резделяющую прямую таким
+образом, чтобы она была между нашими классами на одинаковом расстоянии.
+Легко доказывается, что это расстояние будет составлять \(2/||w||\). Для
+выбора функционала для задачи классификации используется
+({[}soft-margin{]})(https://en.wikipedia.org/wiki/Support\_vector\_machine),
+который определяется как cумма отклонений наших ошибок в классификации
+(берем либо ноль, либо значение ошибки). Если внимательно посмотреть на
+выражение soft-margin, то заметная еще правая часть с модулем вектора,
+коэф. при котором отвечает за чувствительность к ошибкам (линейно
+зависит от коэфа. регуляризации (если будет необходимость, то можем
+подробнее про это написать)).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{load\PYZus{}iris}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{iris} \PY{o}{=} \PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{data}\PY{p}{,} \PY{n}{iris}\PY{o}{.}\PY{n}{target}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} 0.98000000000000009
+\end{Verbatim}
+            
+    Как видим, в обычном случае мы получили еще больший результат, чем
+раньше. Тут мы задали гиперпараметр \(kernel\) - ядро. Немного подробнее
+опишем, что это и для чего. Ядро (\(kernel\) \(trick\)) позволяет
+перевести наши данные в новое пространство с изменением зависимости
+между данными. Обычно это рассматривается на примере, когда у нас данные
+распределены по каким-то окружностям, тогда обычный SVM не даст
+адекватного результата, т.к. он для линейных моделей используется,
+однако, при использовании нелинйеного ядра (скажем, грубо говоря замена
+одной из оси на квадрат сумму осей ранних) мы получим линейную
+зависимость (теперь одна из осей будет отвечать за расстояние от центра
+по сфере). Продемонстрируем, как менялись бы случаи при разных ядрах.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{} тут урезали код для выбора разных ядер}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_92_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Очевидно, что для нашего случая лучше всего подходит линейно ядро.
+Поэтому и используем данное ядро. Теперь числно посмотрем на
+классификацию этой модели.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{clf} \PY{o}{=} \PY{n}{clf} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df\PYZus{}svc} \PY{o}{=} \PY{n}{fit\PYZus{}model\PYZus{}iris}\PY{p}{(}\PY{n}{clf}\PY{p}{)}
+         \PY{n}{df\PYZus{}svc}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_94_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:}             setosa  versicolor  virginica
+         Precision      1.0    0.937500   1.000000
+         Recall         1.0    1.000000   0.900000
+         F1 measure     1.0    0.967742   0.947368
+\end{Verbatim}
+            
+    Как видим, результат получился аналогично случаю с логистической
+регрессией, что объясняется похожим подходом (линейные модели).
+
+    \subsubsection{CatBoost}\label{catboost}
+
+    Рассмотрим градиентный бустинг от Яндекса. Утверждается, что он
+показывает себя \href{https://catboost.yandex/\#benchmark}{лучше}, чем
+такие мощные модели, как XGBoost, которые зачастую считаются
+универсальным инструентом для решения задач ML.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.33}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{k+kn}{from} \PY{n+nn}{catboost} \PY{k}{import} \PY{n}{Pool}
+         \PY{n}{cat\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{p} \PY{o}{=} \PY{n}{Pool}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cat\PYZus{}features}\PY{p}{)} \PY{c+c1}{\PYZsh{} задаем пулл для данных (специфично для CatBoost) }
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{time}
+         from catboost import CatBoost
+         cat\PYZus{}boost = CatBoost()
+         cat\PYZus{}boost.fit(p)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CPU times: user 8.76 s, sys: 1.34 s, total: 10.1 s
+Wall time: 3.48 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k+kn}{import} \PY{n+nn}{itertools}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}\PY{p}{,} \PY{n}{datasets}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         
+         \PY{n}{iris} \PY{o}{=} \PY{n}{datasets}\PY{o}{.}\PY{n}{load\PYZus{}iris}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{data}
+         \PY{n}{y} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{target}
+         \PY{n}{class\PYZus{}names} \PY{o}{=} \PY{n}{iris}\PY{o}{.}\PY{n}{target\PYZus{}names}
+         
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{33}\PY{p}{)}
+         
+         \PY{n}{cat\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{p} \PY{o}{=} \PY{n}{Pool}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{cat\PYZus{}features}\PY{p}{)}
+         \PY{n}{cat\PYZus{}boost} \PY{o}{=} \PY{n}{CatBoost}\PY{p}{(}\PY{p}{)}
+         \PY{n}{cat\PYZus{}boost}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+         \PY{n}{test} \PY{o}{=} \PY{n}{Pool}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{cat\PYZus{}features}\PY{o}{=}\PY{n}{cat\PYZus{}features}\PY{p}{)}
+         \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{p}{[}\PY{n+nb}{round}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{cat\PYZus{}boost}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test}\PY{p}{)}\PY{p}{]}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} урезам часть кода, т.к. он аналогичен тому, что мы смотрели раннее}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_101_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{precision} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{)}
+         \PY{n}{recall} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{)}
+         \PY{n}{f1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{precision} \PY{o}{=} \PY{n}{precision}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{tran\PYZus{}cnf\PYZus{}matrix} \PY{o}{=} \PY{n}{numpy}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{n}{cnf\PYZus{}matrix}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tran\PYZus{}cnf\PYZus{}matrix}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{recall} \PY{o}{=} \PY{n}{recall}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{tran\PYZus{}cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{tran\PYZus{}cnf\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{recall}\PY{o}{.}\PY{n}{iteritems}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{f1} \PY{o}{=} \PY{n}{f1}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{precision}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{*}\PY{n}{recall}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{precision}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{n}{recall}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{df\PYZus{}cat} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{precision}\PY{p}{,} \PY{n}{recall}\PY{p}{,} \PY{n}{f1}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}cat}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{class\PYZus{}names}
+         \PY{n}{df\PYZus{}cat}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precision}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Recall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F1 measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{df\PYZus{}cat}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:}             setosa  versicolor  virginica
+         Precision      1.0    0.947368   0.866667
+         Recall         1.0    0.900000   0.928571
+         F1 measure     1.0    0.923077   0.896552
+\end{Verbatim}
+            
+    Так получилось, что применительно к нашей задаче, \(CatBoost\) взял
+лучшее и худшее от описанных выше моделей (можно оценить по матрице
+ошибок). Отметим, что F1 мера все еще показывает очень высокий
+показатель. Из этого можно сделать, что применительно градиентный
+бустинг не является панацеей.
+
+    \subsection{Что рассмтрим
+дальше}\label{ux447ux442ux43e-ux440ux430ux441ux441ux43cux442ux440ux438ux43c-ux434ux430ux43bux44cux448ux435}
+
+    Планируется рассмотреть алгоритмы кластеризации. И подойти уже к
+настройке нейронной сети для классификации картинок.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
